@@ -1,3 +1,4 @@
+
 # Get Me a Chai - Crowdfunding Platform
 
 A modern crowdfunding platform built with Next.js where creators can get funded by their fans and followers.
