@@ -202,4 +202,7 @@ const Dashboard = () => {
               Your page URL: 
               <span className="text-blue-400 ml-2">
                 {origin}/{form.username}
-              </spa
+             <span className="text-blue-400 ml-2">
+  {origin}/{form.username}
+</span>
+
