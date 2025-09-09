@@ -7,6 +7,7 @@ import Image from 'next/image'
 const Dashboard = () => {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [origin, setOrigin] = useState("")
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -24,7 +25,6 @@ const Dashboard = () => {
       return
     }
     
-    
     setForm({
       name: session.user?.name || "Tabish Ali Soomro",
       email: session.user?.email || "",
@@ -36,13 +36,18 @@ const Dashboard = () => {
     })
   }, [session, status, router])
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin)
+    }
+  }, [])
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
     alert('Profile updated successfully!')
   }
 
@@ -63,6 +68,7 @@ const Dashboard = () => {
       <h1 className="text-center my-5 text-3xl font-bold text-white">Welcome to your Dashboard</h1>
       
       <form className="max-w-2xl mx-auto" onSubmit={handleSubmit}>
+       
         <div className="my-2">
           <label htmlFor="name" className="block mb-2 text-sm font-medium text-white">Name</label>
           <input 
@@ -75,6 +81,7 @@ const Dashboard = () => {
             placeholder="Enter your name" 
           />
         </div>
+
         
         <div className="my-2">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email</label>
@@ -88,7 +95,8 @@ const Dashboard = () => {
             placeholder="Enter your email" 
           />
         </div>
-        
+
+       
         <div className="my-2">
           <label htmlFor="username" className="block mb-2 text-sm font-medium text-white">Username</label>
           <input 
@@ -101,7 +109,8 @@ const Dashboard = () => {
             placeholder="Enter your username" 
           />
         </div>
-        
+
+       
         <div className="my-2">
           <label htmlFor="profilepic" className="block mb-2 text-sm font-medium text-white">Profile Picture URL</label>
           <input 
@@ -114,7 +123,8 @@ const Dashboard = () => {
             placeholder="Enter profile picture URL" 
           />
         </div>
-        
+
+       
         <div className="my-2">
           <label htmlFor="coverpic" className="block mb-2 text-sm font-medium text-white">Cover Picture URL</label>
           <input 
@@ -127,7 +137,8 @@ const Dashboard = () => {
             placeholder="Enter cover picture URL" 
           />
         </div>
-        
+
+       
         <div className="my-2">
           <label htmlFor="razorpayid" className="block mb-2 text-sm font-medium text-white">Razorpay ID</label>
           <input 
@@ -140,6 +151,7 @@ const Dashboard = () => {
             placeholder="Enter Razorpay ID" 
           />
         </div>
+
         
         <div className="my-2">
           <label htmlFor="razorpaysecret" className="block mb-2 text-sm font-medium text-white">Razorpay Secret</label>
@@ -153,7 +165,8 @@ const Dashboard = () => {
             placeholder="Enter Razorpay Secret" 
           />
         </div>
-        
+
+       
         <div className="my-6">
           <button 
             type="submit" 
@@ -164,6 +177,7 @@ const Dashboard = () => {
         </div>
       </form>
 
+     
       <div className="max-w-2xl mx-auto mt-8 p-6 bg-slate-900 rounded-lg">
         <h2 className="text-xl font-bold text-white mb-4">Your Profile Preview</h2>
         <div className="flex items-center gap-4">
@@ -174,7 +188,6 @@ const Dashboard = () => {
               width={60}
               height={60}
               className="rounded-full object-cover"
-              unoptimized
             />
           )}
           <div>
@@ -185,16 +198,8 @@ const Dashboard = () => {
         </div>
         {form.username && (
           <div className="mt-4">
-            <p className="text-white">Your page URL: 
+            <p className="text-white">
+              Your page URL: 
               <span className="text-blue-400 ml-2">
-                {typeof window !== 'undefined' ? window.location.origin : ''}/{form.username}
-              </span>
-            </p>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-
-export default Dashboard
+                {origin}/{form.username}
+              </spa
